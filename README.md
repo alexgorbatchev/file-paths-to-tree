@@ -1,4 +1,4 @@
-# paths-to-tree
+# file-paths-to-tree
 
 A basic NPM module which converts list of file paths to a tree structure and also allows you to print it neatly.
 
@@ -7,9 +7,9 @@ Written in TypeScript ❤️
 ## Usage
 
 ```js
-import { pathsToTree, treeToString, printPathsAsTree } from 'paths-to-tree';
+import { filePathsToTree, treeToString, printFilePathsAsTree } from 'file-paths-to-tree';
 
-pathsToTree(['foo/bar/baz', 'foo/bar/fuz']);
+filePathsToTree(['foo/bar/baz', 'foo/bar/fuz']);
 
 // [
 //   {
@@ -32,14 +32,14 @@ pathsToTree(['foo/bar/baz', 'foo/bar/fuz']);
 //   }
 // ]
 
-treeToString(pathsToTree(['foo/bar/baz', 'foo/bar/fuz']));
+treeToString(filePathsToTree(['foo/bar/baz', 'foo/bar/fuz']));
 
 // foo
 // └── bar
 //     ├── baz
 //     └── fuz
 
-printPathsAsTree(['foo/bar/baz', 'foo/bar/fuz']);
+printFilePathsAsTree(['foo/bar/baz', 'foo/bar/fuz']);
 
 // prints the above to console
 ```

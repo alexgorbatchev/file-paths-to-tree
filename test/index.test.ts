@@ -1,4 +1,4 @@
-import { pathsToTree, treeToString } from '../src';
+import { filePathsToTree, treeToString } from '../src';
 
 const paths = [
   'core/console/src/__tests__/useFetchAppsForCurrentUser.test.tsx',
@@ -19,15 +19,13 @@ const paths = [
   'core/ui/src/Avatar.tsx',
 ];
 
-console.log(treeToString(pathsToTree(['foo/bar/baz', 'foo/bar/fuz'])));
-
-describe('pathsToTree', () => {
+describe('filePathsToTree', () => {
   it('handles empty array', () => {
-    expect(pathsToTree([])).toMatchObject([]);
+    expect(filePathsToTree([])).toMatchObject([]);
   });
 
   it('parses multiple files', () => {
-    expect(pathsToTree(paths)).toMatchObject([
+    expect(filePathsToTree(paths)).toMatchObject([
       {
         name: 'core',
         children: [
@@ -131,7 +129,7 @@ describe('pathsToTree', () => {
 
 describe('treeToString', () => {
   test('returns formatted lines', () => {
-    expect(treeToString(pathsToTree(paths))).toMatch(
+    expect(treeToString(filePathsToTree(paths))).toMatch(
       [
         'core',
         '├── console',

@@ -31,19 +31,19 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "paths-to-tree",
+  "name": "file-paths-to-tree",
   "author": "Alex Gorbatchev",
   "description": "A basic NPM module which converts list of file paths to a tree structure and also allows you to print it neatly.",
-  "homepage": "https://github.com/alexgorbatchev/paths-to-tree",
-  "repository": "alexgorbatchev/paths-to-tree",
-  "module": "dist/paths-to-tree.esm.js",
+  "homepage": "https://github.com/alexgorbatchev/file-paths-to-tree",
+  "repository": "alexgorbatchev/file-paths-to-tree",
+  "module": "dist/file-paths-to-tree.esm.js",
   "size-limit": [
     {
-      "path": "dist/paths-to-tree.cjs.production.min.js",
+      "path": "dist/file-paths-to-tree.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/paths-to-tree.esm.js",
+      "path": "dist/file-paths-to-tree.esm.js",
       "limit": "10 KB"
     }
   ],

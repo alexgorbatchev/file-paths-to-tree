@@ -8,7 +8,7 @@ interface Node {
 /**
  * Takes a list of file paths and turns it into a tree with `{ name: string, children: Node[] }` format.
  */
-export const pathsToTree = (paths: string[]) => {
+export const filePathsToTree = (paths: string[]) => {
   const results: Node[] = [];
 
   return paths.reduce((currentResults, currentPath) => {
@@ -64,6 +64,6 @@ export const treeToString = (nodes: Node[], level = 0, prefix = '') => {
   return results;
 };
 
-export const printPathsAsTree = (paths: string[]) => {
-  console.log(treeToString(pathsToTree(paths)));
+export const printFilePathsAsTree = (paths: string[]) => {
+  console.log(treeToString(filePathsToTree(paths)));
 };
