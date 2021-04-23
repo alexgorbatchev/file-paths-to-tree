@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -32,7 +32,8 @@
     "trailingComma": "es5"
   },
   "name": "paths-to-tree",
-  "author": "Square",
+  "author": "Alex Gorbatchev",
+  "description": "A basic NPM module which converts list of file paths to a tree structure and also allows you to print it neatly.",
   "module": "dist/paths-to-tree.esm.js",
   "size-limit": [
     {

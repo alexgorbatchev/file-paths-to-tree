@@ -1,21 +1,25 @@
-import { pathsToTree, treeToPrintableLines } from '../src';
+import { pathsToTree, treeToString } from '../src';
 
-const paths = `core/console/src/__tests__/useFetchAppsForCurrentUser.test.tsx
-core/console/src/useFetchAppsForCurrentUser.ts
-core/helpers/src/nodeHostURL.ts
-core/host-app/src/components/__tests__/Container.test.tsx
-core/testing-helpers/src/fixtures/cluster.ts
-core/testing-helpers/src/fixtures/deployableArtifact.ts
-core/testing-helpers/src/fixtures/node.ts
-core/testing-helpers/src/fixtures/replicationController.ts
-core/ui/src/__tests__/GitCommitMessage.test.tsx
-core/ui/src/__tests__/GitCommitTag.test.tsx
-core/ui/src/__tests__/Avatar.test.tsx
-core/ui/src/GitCommitMessage.tsx
-core/ui/src/GitCommitTag.tsx
-core/ui/src/LaunchableTag.tsx
-core/ui/src/ScheduleCard.tsx
-core/ui/src/Avatar.tsx`.split(/\n/gm);
+const paths = [
+  'core/console/src/__tests__/useFetchAppsForCurrentUser.test.tsx',
+  'core/console/src/useFetchAppsForCurrentUser.ts',
+  'core/helpers/src/nodeHostURL.ts',
+  'core/host-app/src/components/__tests__/Container.test.tsx',
+  'core/testing-helpers/src/fixtures/cluster.ts',
+  'core/testing-helpers/src/fixtures/deployableArtifact.ts',
+  'core/testing-helpers/src/fixtures/node.ts',
+  'core/testing-helpers/src/fixtures/replicationController.ts',
+  'core/ui/src/__tests__/GitCommitMessage.test.tsx',
+  'core/ui/src/__tests__/GitCommitTag.test.tsx',
+  'core/ui/src/__tests__/Avatar.test.tsx',
+  'core/ui/src/GitCommitMessage.tsx',
+  'core/ui/src/GitCommitTag.tsx',
+  'core/ui/src/LaunchableTag.tsx',
+  'core/ui/src/ScheduleCard.tsx',
+  'core/ui/src/Avatar.tsx',
+];
+
+console.log(treeToString(pathsToTree(['foo/bar/baz', 'foo/bar/fuz'])));
 
 describe('pathsToTree', () => {
   it('handles empty array', () => {
@@ -125,41 +129,43 @@ describe('pathsToTree', () => {
   });
 });
 
-describe('treeToPrintableLines', () => {
+describe('treeToString', () => {
   test('returns formatted lines', () => {
-    expect(treeToPrintableLines(pathsToTree(paths))).toMatchObject([
-      'core',
-      '├── console',
-      '│   └── src',
-      '│       ├── __tests__',
-      '│       │   └── useFetchAppsForCurrentUser.test.tsx',
-      '│       └── useFetchAppsForCurrentUser.ts',
-      '├── helpers',
-      '│   └── src',
-      '│       └── nodeHostURL.ts',
-      '├── host-app',
-      '│   └── src',
-      '│       └── components',
-      '│           └── __tests__',
-      '│               └── Container.test.tsx',
-      '├── testing-helpers',
-      '│   └── src',
-      '│       └── fixtures',
-      '│           ├── cluster.ts',
-      '│           ├── deployableArtifact.ts',
-      '│           ├── node.ts',
-      '│           └── replicationController.ts',
-      '└── ui',
-      '    └── src',
-      '        ├── __tests__',
-      '        │   ├── GitCommitMessage.test.tsx',
-      '        │   ├── GitCommitTag.test.tsx',
-      '        │   └── Avatar.test.tsx',
-      '        ├── GitCommitMessage.tsx',
-      '        ├── GitCommitTag.tsx',
-      '        ├── LaunchableTag.tsx',
-      '        ├── ScheduleCard.tsx',
-      '        └── Avatar.tsx',
-    ]);
+    expect(treeToString(pathsToTree(paths))).toMatch(
+      [
+        'core',
+        '├── console',
+        '│   └── src',
+        '│       ├── __tests__',
+        '│       │   └── useFetchAppsForCurrentUser.test.tsx',
+        '│       └── useFetchAppsForCurrentUser.ts',
+        '├── helpers',
+        '│   └── src',
+        '│       └── nodeHostURL.ts',
+        '├── host-app',
+        '│   └── src',
+        '│       └── components',
+        '│           └── __tests__',
+        '│               └── Container.test.tsx',
+        '├── testing-helpers',
+        '│   └── src',
+        '│       └── fixtures',
+        '│           ├── cluster.ts',
+        '│           ├── deployableArtifact.ts',
+        '│           ├── node.ts',
+        '│           └── replicationController.ts',
+        '└── ui',
+        '    └── src',
+        '        ├── __tests__',
+        '        │   ├── GitCommitMessage.test.tsx',
+        '        │   ├── GitCommitTag.test.tsx',
+        '        │   └── Avatar.test.tsx',
+        '        ├── GitCommitMessage.tsx',
+        '        ├── GitCommitTag.tsx',
+        '        ├── LaunchableTag.tsx',
+        '        ├── ScheduleCard.tsx',
+        '        └── Avatar.tsx',
+      ].join('\n')
+    );
   });
 });
