@@ -1,58 +1,40 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
+  "module": "dist/index.js",
+  "files": ["dist", "src"],
+  "type": "module",
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
-  },
-  "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
+    "dev": "tsc --watch",
+    "test": "jest"
   },
   "name": "file-paths-to-tree",
   "author": "Alex Gorbatchev",
-  "description": "A basic NPM module which converts list of file paths to a tree structure and also allows you to print it neatly.",
+  "description": "Converts list of file paths to a tree structure.",
   "homepage": "https://github.com/alexgorbatchev/file-paths-to-tree",
   "repository": "alexgorbatchev/file-paths-to-tree",
-  "module": "dist/file-paths-to-tree.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/file-paths-to-tree.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/file-paths-to-tree.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.10.2",
-    "husky": "^6.0.0",
-    "size-limit": "^4.10.2",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
+    "@types/jest": "^29.2.2",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-typescript": "^3.0.0",
+    "eslint-formatter-pretty": "^4.1.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-no-only-tests": "^3.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-private-rules": "./eslint/eslint-plugin-private-rules",
+    "jest": "^29.3.0",
+    "prettier": "^2.5.1",
+    "ts-jest": "^29.0.3",
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4"
   }
 }
