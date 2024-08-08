@@ -1,27 +1,49 @@
-import { sep } from 'node:path';
+import type { RequiredDeep } from "type-fest";
 
-interface Node<Data> {
+export type Node = {
   name: string;
   path: string;
-  children: Node<Data>[];
-  parent: Node<Data> | null;
-  data?: Data;
-}
+  children: Node[];
+  parent: Node | null;
+};
+
+export type Options = {
+  formatLabel?: (node: Node) => string;
+  separator?: string;
+  connectors?: {
+    tee?: string;
+    elbow?: string;
+    line?: string;
+    padding?: string;
+  };
+};
+
+const defaultOptions: RequiredDeep<Options> = {
+  formatLabel: (node) => node.name,
+  separator: "/",
+  connectors: {
+    tee: "├── ",
+    elbow: "└── ",
+    line: "│",
+    padding: "   ",
+  },
+};
 
 /**
- * Takes a list of file paths and turns it into a tree. For each node you can attach own data using a callback.
+ * Takes a list of file path strings and turns it into a `Node[]`.
  */
-export const filePathsToTree = <Data>(paths: string[], getData?: (node: Node<Data>) => Data) => {
-  const results: Node<Data>[] = [];
+export function filePathsToTree(paths: string[], options: Options = {}) {
+  const separator = options.separator || defaultOptions.separator;
+  const results: Node[] = [];
 
   return paths.reduce((currentResults, currentPath) => {
-    const pathParts = currentPath.split(sep);
-    const byPath: Record<string, Node<Data>> = {};
+    const pathParts = currentPath.split(separator);
+    const byPath: Record<string, Node> = {};
 
     pathParts.reduce((nodes, name, index, arr) => {
-      let node: Node<Data> | undefined = nodes.find(node => node.name === name);
-      const path = arr.slice(0, index + 1).join(sep);
-      const parentPath = arr.slice(0, index).join(sep);
+      let node: Node | undefined = nodes.find((node) => node.name === name);
+      const path = arr.slice(0, index + 1).join(separator);
+      const parentPath = arr.slice(0, index).join(separator);
 
       if (!node) {
         node = {
@@ -31,7 +53,6 @@ export const filePathsToTree = <Data>(paths: string[], getData?: (node: Node<Dat
           children: [],
         };
 
-        node.data = getData?.(node);
         nodes.push(node);
       }
 
@@ -42,43 +63,50 @@ export const filePathsToTree = <Data>(paths: string[], getData?: (node: Node<Dat
 
     return currentResults;
   }, results);
-};
+}
 
 /**
- * Converts a list of `Node` to a flat list of printable strings.
+ * Converts `Node[]` to a flat string.
  */
-export const treeToString = <Data>(nodes: Node<Data>[], level = 0, prefix = '') => {
+export function treeToString(nodes: Node[], options: Options = {}, level = 0, prefix = "") {
   const nodesCount = nodes.length - 1;
-  let results = '';
+  const formatLabel = options.formatLabel || defaultOptions.formatLabel;
+  const connectors = options.connectors || defaultOptions.connectors;
+  const tee = connectors.tee || defaultOptions.connectors.tee;
+  const elbow = connectors.elbow || defaultOptions.connectors.elbow;
+  const line = connectors.line || defaultOptions.connectors.line;
+  let results = "";
 
   nodes.forEach((node, nodeIndex) => {
-    let line = node.name;
-    let pointer = '';
+    let pointer = "";
 
     if (level > 0) {
       if (nodesCount > 0) {
-        pointer = nodeIndex === nodesCount ? '└── ' : '├── ';
+        pointer = nodeIndex === nodesCount ? elbow : tee;
       } else {
-        pointer = '└── ';
+        pointer = elbow;
       }
     }
 
-    results += prefix + pointer + line + '\n';
+    results += `${prefix + pointer + formatLabel(node)}\n`;
 
-    if (node.children && node.children.length) {
+    if (node.children?.length) {
       let newPrefix = prefix;
 
       if (level > 0) {
-        newPrefix += `${nodeIndex === nodesCount ? ' ' : '│'}   `;
+        newPrefix += `${nodeIndex === nodesCount ? " " : line}   `;
       }
 
-      results += treeToString(node.children, level + 1, newPrefix);
+      results += treeToString(node.children, options, level + 1, newPrefix);
     }
   });
 
   return results;
-};
+}
 
-export const printFilePathsAsTree = (paths: string[]) => {
-  console.log(treeToString(filePathsToTree(paths)));
-};
+/**
+ * Prints a list of file paths as a tree.
+ */
+export function printFilePathsAsTree(paths: string[], options: Options = {}) {
+  console.log(treeToString(filePathsToTree(paths), options));
+}

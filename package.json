@@ -4,17 +4,15 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/index.js",
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "type": "module",
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "scripts": {
-    "dev": "tsc --watch",
-    "test": "jest"
+    "dev": "bun test --watch",
+    "test": "bun test",
+    "build": "tsc -p tsconfig-build.json"
   },
   "name": "file-paths-to-tree",
   "author": "Alex Gorbatchev",
@@ -22,22 +20,9 @@
   "homepage": "https://github.com/alexgorbatchev/file-paths-to-tree",
   "repository": "alexgorbatchev/file-paths-to-tree",
   "devDependencies": {
-    "@types/jest": "^29.2.2",
-    "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.8.0",
-    "@typescript-eslint/parser": "^5.8.0",
-    "eslint": "^8.5.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-typescript": "^3.0.0",
-    "eslint-formatter-pretty": "^4.1.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-no-only-tests": "^3.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-private-rules": "./eslint/eslint-plugin-private-rules",
-    "jest": "^29.3.0",
-    "prettier": "^2.5.1",
-    "ts-jest": "^29.0.3",
-    "tslib": "^2.4.1",
-    "typescript": "^4.8.4"
+    "@biomejs/biome": "^1.8.3",
+    "type-fest": "^4.24.0",
+    "bun-types": "^1.1.22",
+    "typescript": "^5.5.4"
   }
 }
