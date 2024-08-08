@@ -2,31 +2,27 @@ name: CI
 on: [push]
 jobs:
   build:
-    name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
+    name: Build, lint, and test with Bun on Ubuntu
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["20.x"]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ matrix.node }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
+      - name: Set up Bun
+        run: curl -fsSL https://bun.sh/install | bash
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+      - name: Install dependencies
+        run: $HOME/.bun/bin/bun install
 
       - name: Lint
-        run: biome ci
+        run: $HOME/.bun/bin/bun run biome ci
 
       - name: Test
-        run: bun test
+        run: $HOME/.bun/bin/bun test
 
       - name: Build
         run: npm run build
